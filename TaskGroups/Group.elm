@@ -19,11 +19,11 @@ type Msg = Remove Task
 
 -- VIEW
 view : Model -> Html Msg
-view model = div []
+view model = div [ class "group" ]
        ( List.map taskView model.tasks )
 taskView : Task -> Html Msg
 taskView task = div []
-    [ div [ class "group" ]
+    [ div [ class "task" ]
         [ span [] [ text task ]
         , button [ onClick (Remove task) ] [ text "remove" ]
         ]
