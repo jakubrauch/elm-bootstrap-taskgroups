@@ -1,6 +1,7 @@
 module TaskGroups exposing (..)
 
-import Html exposing (Html, program, div, node)
+import Html exposing (Html, program, div, node, button, text)
+import Html.Events exposing (onClick)
 import TaskGroups.Group
 import Html.Attributes exposing (href, rel, type_, class)
 
@@ -17,7 +18,7 @@ init = ([ TaskGroups.Group.initialModel ["a", "b"]
 
 -- MESSAGES
 type alias TaskGroupMsg = TaskGroups.Group.Msg
-type Msg = Noop |
+type Msg = NewGroup |
     TaskGroupMsg TaskGroupModel TaskGroupMsg
 
 
@@ -32,6 +33,10 @@ view model = div []
             [ div [ class "col-sm-offset-2 col-sm-8" ]
                 ( List.map (\group -> Html.map (TaskGroupMsg group) (TaskGroups.Group.view group)) model )
             ]
+        , div [ class "row" ]
+            [ div [ class "col-sm-offset-2 col-sm-8" ]
+                [ button [ onClick NewGroup ] [ text "create group" ] ]
+            ]
         ]
     ]
 stylesheet : String -> Html Msg
@@ -44,8 +49,8 @@ update msg model =
     case msg of
         TaskGroupMsg group msg ->
             ((List.map (\g -> if g == group then (TaskGroups.Group.update msg g) else g) model), Cmd.none )
-        Noop -> ( model, Cmd.none )
-
+        NewGroup ->
+            (TaskGroups.Group.group :: model, Cmd.none)
 
 -- SUBSCRIPTIONS
 subscriptions : Model -> Sub Msg
