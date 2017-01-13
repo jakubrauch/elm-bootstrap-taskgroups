@@ -34,7 +34,7 @@ view model = div []
                 ( List.map (\group -> Html.map (TaskGroupMsg group) (TaskGroups.Group.view group)) model )
             ]
         , div [ class "row" ]
-            [ div [ class "col-sm-offset-4 col-sm-4" ]
+            [ div [ class "col-sm-offset-4 col-sm-4 text-center" ]
                 [ button [ class "btn btn-primary", onClick NewGroup ] [ text "create group" ] ]
             ]
         ]

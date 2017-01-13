@@ -33,7 +33,7 @@ taskView : Task -> Html Msg
 taskView task = div []
     [ div [ class "task" ]
         [ span [] [ text task ]
-        , button [ class "btn btn-primary", onClick (Remove task) ] [ text "remove" ]
+        , button [ class "btn btn-danger", onClick (Remove task) ] [ text "remove" ]
         ]
     ]
 
