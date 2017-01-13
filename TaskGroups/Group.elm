@@ -2,7 +2,7 @@ module TaskGroups.Group exposing (..)
 
 import Html exposing (Html, div, span, text, button, input)
 import Html.Events exposing (onClick, onInput)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (..)
 
 -- MODEL
 type alias Group = { tasks : List Task, text : String }
@@ -23,18 +23,17 @@ type Msg = Remove Task | Add Task | Update Task
 view : Model -> Html Msg
 view model = div [ class "group" ]
        (( List.map taskView model.tasks ) ++
-       [ div [ class "row" ]
-           [ div [ class "col-sm-offset-2 col-sm-8" ]
-               [ input [ onInput Update ] []
-               , button [ onClick (Add model.text) ] [ text "add" ]
-               ]
+       [ div [ class "input-group" ]
+           [ input [ class "form-control", value model.text, onInput Update ] []
+           , span [ class "input-group-btn" ]
+               [ button [ class "btn btn-primary", onClick (Add model.text) ] [ text "add" ] ]
            ]
        ])
 taskView : Task -> Html Msg
 taskView task = div []
     [ div [ class "task" ]
         [ span [] [ text task ]
-        , button [ onClick (Remove task) ] [ text "remove" ]
+        , button [ class "btn btn-primary", onClick (Remove task) ] [ text "remove" ]
         ]
     ]
 

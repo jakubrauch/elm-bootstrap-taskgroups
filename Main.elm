@@ -1,6 +1,6 @@
 module TaskGroups exposing (..)
 
-import Html exposing (Html, program, div, node, button, text)
+import Html exposing (Html, program, div, node, button, text, a, span)
 import Html.Events exposing (onClick)
 import TaskGroups.Group
 import Html.Attributes exposing (href, rel, type_, class)
@@ -30,15 +30,20 @@ view model = div []
     , stylesheet "https://fonts.googleapis.com/css?family=Open+Sans|Roboto"
     , div [ class "container" ]
         [ div [ class "row" ]
-            [ div [ class "col-sm-offset-2 col-sm-8" ]
+            [ div [ class "col-sm-offset-4 col-sm-4" ]
                 ( List.map (\group -> Html.map (TaskGroupMsg group) (TaskGroups.Group.view group)) model )
             ]
         , div [ class "row" ]
-            [ div [ class "col-sm-offset-2 col-sm-8" ]
-                [ button [ onClick NewGroup ] [ text "create group" ] ]
+            [ div [ class "col-sm-offset-4 col-sm-4" ]
+                [ button [ class "btn btn-primary", onClick NewGroup ] [ text "create group" ] ]
             ]
         ]
+    , div [ class "footer color-invert" ]
+        [ div []
+            [ a [ href "https://www.github.com/jakubrauch/elm-bootstrap-taskgroups" ] [ span [] [ text "https://github.com/jakubrauch/elm-bootstrap-example" ] ] ]
+        ]
     ]
+
 stylesheet : String -> Html Msg
 stylesheet link =
     node "link" [ (href link), (rel "stylesheet"), (type_ "text/css") ] []
